@@ -1,0 +1,169 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+class Lklist {
+	struct Lnode{
+		T data;
+		Lnode* next;
+	};
+	Lnode* head;
+public:
+	Lklist() {
+		head = new Lnode();
+		head->next = NULL;
+	}
+
+	bool get(int i, T& e) {
+		if (i <= 0) {
+			cout << "错误位置输入" << endl;
+			return false;
+		}
+		Lnode* p = head;
+		int j = 0;
+		while(p && j < i ) {
+			p = p->next;
+			j++;
+		}
+		if (!p) {
+			cout << "错误位置输入" << endl;
+			return false;
+		}
+		e = p->data;
+		return true;
+	}
+
+	bool Insert(int i, T elem) {
+		if (i <= 0) {
+			cout << "插入位置错误" << endl;
+			return false;
+		}
+		int j = 1;
+		Lnode* p = head;
+		while (p && j < i) {
+			p = p->next;
+			j++;
+		}
+		if (!p) {
+			cout << "插入位置错误" << endl;
+			return false;
+		}
+		Lnode* node = new Lnode();
+		if (!node) {
+			cout << "节点创建失败" << endl;
+			return false;
+		}
+		node->data = elem;
+		node->next = p->next;
+		p->next = node;
+		return true;
+	}
+
+	bool Insert_front(T elem) {
+		Lnode* node = new Lnode();
+		if (!node) {
+			cout << "节点创建失败" << endl;
+			return false;
+		}
+		node->data = elem;
+		node->next = head->next;
+		head->next = node;
+		return true;
+	}
+
+	bool Remove(int i) {
+		if (i <= 0) {
+			cout << "移除位置错误" << endl;
+			return false;
+		}
+		Lnode* p = head;
+		int j = 1;
+		while (p && j < i) {
+			p = p->next;
+			j++;
+		}
+		if (!p) {
+			cout << "移除位置错误" << endl;
+			return false;
+		}
+		Lnode* node = p->next;
+		p->next = node->next;
+		delete node;
+		return true;
+	}
+
+	bool Remove_front() {
+		Lnode* p = head->next;
+		head->next = p->next;
+		delete p;
+		return true;
+	}
+
+	bool Push_back(T elem) {
+		Lnode* node = new Lnode(), *p = head;
+		if (!node) {
+			cout << "节点创建失败" << endl;
+			return false;
+		}
+		node->data = elem;
+		while (p->next) p = p->next;
+		p->next = node;
+		node->next = NULL;
+		return true;
+	}
+
+	bool Pop_back(T& elem) {
+		Lnode* p = head, *q;
+		while (p->next->next) {
+			p = p->next;
+		}
+		q = p->next;
+		elem = q->data;
+		p->next = NULL;
+		delete q;
+		return true;
+	}
+	
+	void Traverse(void (*Function) (T& elem)) {
+		Lnode* p = head->next;
+		while (p) {
+			Function(p->data);
+			p = p->next;
+		}
+		cout << endl;
+		return;
+	}
+};
+
+template <typename T>
+void print(T& elem) {
+	cout << elem << " ";
+	return;
+}
+
+int main()
+{
+	Lklist<char> list;
+	list.Insert_front('E');
+	list.Insert_front('D');
+	list.Insert_front('C');
+	list.Insert_front('B');
+	list.Insert_front('A');
+	list.Push_back('F');
+	list.Insert(3, 'M');
+	list.Traverse(print);
+	char n;
+	list.get(2, n);
+	cout << n << endl;
+	list.Pop_back(n);
+	cout << n << endl;
+	list.Traverse(print);
+	list.Remove(4);
+	list.Traverse(print);
+	list.Remove_front();
+	list.Traverse(print);
+
+	return 0;
+}
