@@ -35,6 +35,25 @@ public:
 		return true;
 	}
 
+	bool Set(int i, T elem) {
+		if (i <= 0) {
+			cout << "错误位置输入" << endl;
+			return false;
+		}
+		Lnode* p = head;
+		int j = 0;
+		while (p && j < i) {
+			p = p->next;
+			j++;
+		}
+		if (!p) {
+			cout << "错误位置输入" << endl;
+			return false;
+		}
+		p->data = elem;
+		return true;
+	}
+
 	bool Insert(int i, T elem) {
 		if (i <= 0) {
 			cout << "插入位置错误" << endl;
@@ -163,7 +182,18 @@ int main()
 	list.Remove(4);
 	list.Traverse(print);
 	list.Remove_front();
+	list.Traverse(print);	
+	list.Set(3, 'K');
 	list.Traverse(print);
+
+	Lklist<string> list2;
+	list2.Insert_front("zeno");
+	list2.Insert_front("jacy");
+	list2.Insert_front("tim");
+	list2.Insert_front("jony");
+	list2.Insert_front("sam");
+	list2.Insert_front("lisa");
+	list2.Traverse(print);
 
 	return 0;
 }
