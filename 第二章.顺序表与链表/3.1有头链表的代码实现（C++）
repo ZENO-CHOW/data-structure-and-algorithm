@@ -103,7 +103,7 @@ public:
 			p = p->next;
 			j++;
 		}
-		if (!p) {
+		if (!(p->next)) {
 			cout << "移除位置错误" << endl;
 			return false;
 		}
