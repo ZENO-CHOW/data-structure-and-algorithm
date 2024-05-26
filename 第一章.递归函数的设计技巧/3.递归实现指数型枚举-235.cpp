@@ -5,7 +5,7 @@ using namespace std;
 int arry[10];
 
 void print_one_result(int n) {
-  //å®ç°å¯¹è¾“å…¥çš„ç‰¹å®šä¸‹æ ‡çš„èŒƒå›´çš„æ•°ç»„å…ƒç´ æ‰“å°
+    //ÊµÏÖ¶ÔÊäÈëµÄÌØ¶¨ÏÂ±êµÄ·¶Î§µÄÊı×éÔªËØ´òÓ¡
     for (int i = 0; i <= n; i++) {
         if (i) cout << " ";
         cout << arry[i];
@@ -15,14 +15,14 @@ void print_one_result(int n) {
 }
 
 void f(int i, int j, int n) {
-    if (j > n) return;   //è¾¹ç•Œæ¡ä»¶
-    //å¯¹iä½ç½®å¡«å…¥æœ€å°jå€¼
+    if (j > n) return;   //±ß½çÌõ¼ş
+    //¶ÔiÎ»ÖÃÌîÈë×îĞ¡jÖµ
     for (int k = j; k <= n; k++) {
-    arry[i] = k;
-    //æ¯å¡«å…¥ä¸€ä¸ªå€¼åæ‰“å°è¾“å‡ºä¸€æ¬¡
-    print_one_result(i);
-    //ç»§ç»­iä½ç½®åçš„i+1ä½ç½®çš„å¡«å†™
-    f(i + 1,k + 1, n);
+        arry[i] = k;
+        //Ã¿ÌîÈëÒ»¸öÖµºó´òÓ¡Êä³öÒ»´Î
+        print_one_result(i);
+        //¼ÌĞøiÎ»ÖÃºóµÄi+1Î»ÖÃµÄÌîĞ´
+        f(i + 1, k + 1, n);
     }
     return;
 }

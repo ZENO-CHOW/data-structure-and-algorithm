@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int f(int i,vector<int>& arry,int n)
+int f(int i, vector<int>& arry, int n)
 {
     if (i > n) return 0;
     return f(i + arry[i - 1], arry, n) + 1;
@@ -19,5 +19,5 @@ int main() {
         cin >> a;
         arry.emplace_back(a);
     }
-     cout << f(1, arry, n) << endl;
+    cout << f(1, arry, n) << endl;
 }

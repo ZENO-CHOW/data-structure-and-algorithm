@@ -5,7 +5,7 @@ using namespace std;
 int arry[10];
 
 void print_one_result(int m) {
-    //å®ç°å¯¹è¾“å…¥çš„ç‰¹å®šä¸‹æ ‡çš„èŒƒå›´çš„æ•°ç»„å…ƒç´ æ‰“å°
+    //ÊµÏÖ¶ÔÊäÈëµÄÌØ¶¨ÏÂ±êµÄ·¶Î§µÄÊı×éÔªËØ´òÓ¡
     for (int i = 0; i < m; i++) {
         if (i) cout << " ";
         cout << arry[i];
@@ -16,14 +16,14 @@ void print_one_result(int m) {
 
 void f(int i, int j, int n, int m) {
     if (i > m) return;
-    //å¯¹iä½ç½®å¡«å…¥æœ€å°jå€¼
+    //¶ÔiÎ»ÖÃÌîÈë×îĞ¡jÖµ
     for (int k = j; k <= n && m - i - 1 <= n - k; k++) {
         arry[i] = k;
-        //ç»§ç»­iä½ç½®åçš„i+1ä½ç½®çš„å¡«å†™
+        //¼ÌĞøiÎ»ÖÃºóµÄi+1Î»ÖÃµÄÌîĞ´
         f(i + 1, k + 1, n, m);
     }
     if (i == m) {
-       //æ¯å¡«å…¥ä¸€ä¸ªå€¼åæ‰“å°è¾“å‡ºä¸€æ¬¡
+        //Ã¿ÌîÈëÒ»¸öÖµºó´òÓ¡Êä³öÒ»´Î
         print_one_result(m);
     }
     return;
@@ -33,7 +33,7 @@ void f(int i, int j, int n, int m) {
 int main() {
     int n, m;
     cin >> n >> m;
-    
+
     f(0, 1, n, m);
     return 0;
 }
