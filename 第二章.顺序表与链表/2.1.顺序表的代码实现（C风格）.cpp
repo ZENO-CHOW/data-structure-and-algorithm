@@ -2,13 +2,13 @@
 
 using namespace std;
 
-//å®šä¹‰æ•°æ®è¡¨
+//¶¨ÒåÊı¾İ±í
 struct Vector {
 	int size, count;
 	int* data;
 };
 
-//é¡ºåºæ ‡çš„åˆå§‹åŒ–
+//Ë³Ğò±êµÄ³õÊ¼»¯
 Vector* GetNewVector(int n) {
 	Vector* p = (Vector*)malloc(sizeof(Vector));
 	if (p != NULL) {
@@ -20,7 +20,7 @@ Vector* GetNewVector(int n) {
 	return p;
 }
 
-//é¡ºåºè¡¨çš„é”€æ¯æ“ä½œ
+//Ë³Ğò±íµÄÏú»Ù²Ù×÷
 void Clear(Vector* v) {
 	if (v == NULL) return;
 	free(v->data);
@@ -28,58 +28,58 @@ void Clear(Vector* v) {
 	return;
 }
 
-//é¡ºåºè¡¨çš„æ‰©å®¹æ“ä½œ
+//Ë³Ğò±íµÄÀ©Èİ²Ù×÷
 int Expand(Vector* v) {
 	if (v == NULL) return 0;
 	cout << "Expand v from " << v->size << " to " << 2 * v->size << endl;
-	int *p = (int*)realloc(v->data, sizeof(int) * 2 * v->size);
+	int* p = (int*)realloc(v->data, sizeof(int) * 2 * v->size);
 	if (p == NULL) return 0;
 	v->data = p;
 	v->size *= 2;
 	return 1;
 }
 
-//é¡ºåºè¡¨çš„æ’å…¥æ“ä½œ
+//Ë³Ğò±íµÄ²åÈë²Ù×÷
 int Insert(Vector* v, int pos, int val) {
 	if (pos < 0 || pos > v->count) return 0;
 	if (v->size == v->count && !Expand(v)) {
 		return 0;
 	}
-	//é€†åºç§»åŠ¨é¡ºåºè¡¨ä¸­æ•°æ®
-	for (int i = v->count -1; i >= pos; i--) {
+	//ÄæĞòÒÆ¶¯Ë³Ğò±íÖĞÊı¾İ
+	for (int i = v->count - 1; i >= pos; i--) {
 		v->data[i + 1] = v->data[i];
 	}
 	v->data[pos] = val;
-	//å˜æ›´è¡¨ä¸­æ•°æ®æ•°é‡
+	//±ä¸ü±íÖĞÊı¾İÊıÁ¿
 	v->count += 1;
 	return 1;
 }
 
-//é¡ºåºè¡¨çš„åˆ é™¤æ“ä½œ
+//Ë³Ğò±íµÄÉ¾³ı²Ù×÷
 int Erase(Vector* v, int pos) {
 	if (pos < 0 || pos >= v->count) return 0;
 	int a = v->data[pos];
-	//é€†åºç§»åŠ¨é¡ºåºè¡¨ä¸­æ•°æ®
-	for (int i = pos; i < v->count-1; i++) {
+	//ÄæĞòÒÆ¶¯Ë³Ğò±íÖĞÊı¾İ
+	for (int i = pos; i < v->count - 1; i++) {
 		v->data[i] = v->data[i + 1];
 	}
-	//å˜æ›´è¡¨ä¸­æ•°æ®æ•°é‡
+	//±ä¸ü±íÖĞÊı¾İÊıÁ¿
 	v->count -= 1;
 	return 1;
 }
 
-//è¾“å‡ºé¡ºåºè¡¨å†…åŒ…å«çš„æ•°æ®
+//Êä³öË³Ğò±íÄÚ°üº¬µÄÊı¾İ
 void OutPut_Vector(Vector* v) {
 	int len = 0;
-	//éå†è¾“å‡º0~19æ•°å­—ï¼Œæ¯ä¸ªæ•°å­—é—´éš”5ä¸ªç©ºæ ¼
+	//±éÀúÊä³ö0~19Êı×Ö£¬Ã¿¸öÊı×Ö¼ä¸ô5¸ö¿Õ¸ñ
 	for (int i = 0; i < v->size; i++) {
 		cout << i << "    ";
-		len += 5;//è®°å½•é•¿åº¦
+		len += 5;//¼ÇÂ¼³¤¶È
 	}
 	cout << endl;
 	for (int i = 0; i < len; i++) cout << "-";
 	cout << endl;
-	//éå†è¾“å‡ºè¡¨å†…å­˜å‚¨çš„æ•°æ®
+	//±éÀúÊä³ö±íÄÚ´æ´¢µÄÊı¾İ
 	for (int i = 0; i < v->count; i++) {
 		cout << v->data[i] << "    ";
 	}
@@ -91,9 +91,9 @@ void OutPut_Vector(Vector* v) {
 int main()
 {
 	int m;
-	//è¾“å…¥æƒ³è¦å¯¹é¡ºåºè¡¨è¿›è¡Œæ“ä½œçš„æ¬¡æ•°
+	//ÊäÈëÏëÒª¶ÔË³Ğò±í½øĞĞ²Ù×÷µÄ´ÎÊı
 	cin >> m;
-	//å¯¹é¡ºåºè¡¨ä½œéšæœºæ’å…¥å’Œåˆ é™¤æ“ä½œï¼Œæ€»å…±æ“ä½œæ¬¡æ•°ä¸º20æ¬¡
+	//¶ÔË³Ğò±í×÷Ëæ»ú²åÈëºÍÉ¾³ı²Ù×÷£¬×Ü¹²²Ù×÷´ÎÊıÎª20´Î
 	srand(time(0));
 	#define MAX_OP 5
 	Vector* v = GetNewVector(MAX_OP);
@@ -101,25 +101,25 @@ int main()
 	for (int i = 0; i < m; i++) {
 		int op = rand() % 4, val;
 		switch (op) {
-			case 0:
-			case 1:
-			case 2:
-				//pos = rand() % (v->count + 2);
-				val = rand() % 100;
-				cout << "( " << i << " )" << "insert " << val << " at " << pos << " to Vector = " << Insert(v, pos, val) << endl;  //è¾“å‡ºçš„åŒæ—¶å®Œæˆæ’å…¥æ“ä½œ
-				OutPut_Vector(v);  //è¾“å‡ºç›¸åº”æ“ä½œåçš„é¡ºåºè¡¨æ•°æ®
-				pos += 1;
-				break;
-			case 3:
-				//pos = rand() % (v->count + 2);
-				pos -= 1;
-				if (pos < 0) pos = 0;
-				cout << "( " << i << " )" << "erase item at " << pos << " in Vector = " << Erase(v, pos) << endl;   //è¾“å‡ºçš„åŒæ—¶å®Œæˆåˆ é™¤æ“ä½œ
-				OutPut_Vector(v);   //è¾“å‡ºç›¸åº”æ“ä½œåçš„é¡ºåºè¡¨æ•°æ®
-				break;
-	
+		case 0:
+		case 1:
+		case 2:
+			//pos = rand() % (v->count + 2);
+			val = rand() % 100;
+			cout << "( " << i << " )" << "insert " << val << " at " << pos << " to Vector = " << Insert(v, pos, val) << endl;  //Êä³öµÄÍ¬Ê±Íê³É²åÈë²Ù×÷
+			OutPut_Vector(v);  //Êä³öÏàÓ¦²Ù×÷ºóµÄË³Ğò±íÊı¾İ
+			pos += 1;
+			break;
+		case 3:
+			//pos = rand() % (v->count + 2);
+			pos -= 1;
+			if (pos < 0) pos = 0;
+			cout << "( " << i << " )" << "erase item at " << pos << " in Vector = " << Erase(v, pos) << endl;   //Êä³öµÄÍ¬Ê±Íê³ÉÉ¾³ı²Ù×÷
+			OutPut_Vector(v);   //Êä³öÏàÓ¦²Ù×÷ºóµÄË³Ğò±íÊı¾İ
+			break;
+
 		}
-	
+
 	}
 	Clear(v);
 

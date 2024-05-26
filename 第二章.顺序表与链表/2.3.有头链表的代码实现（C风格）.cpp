@@ -10,7 +10,7 @@ struct Node {
 };
 
 
-//åˆå§‹åŒ–é“¾è¡¨
+//³õÊ¼»¯Á´±í
 Node* GetNewNode(int val) {
 	Node* p = (Node*)malloc(sizeof(Node));
 	if (p != NULL) {
@@ -21,19 +21,19 @@ Node* GetNewNode(int val) {
 	return p;
 }
 
-//é“¾è¡¨ç»“æ„çš„æ’å…¥æ“ä½œï¼Œè¿”å›å€¼ä¸ºé“¾è¡¨çš„å¤´æŒ‡é’ˆ
+//Á´±í½á¹¹µÄ²åÈë²Ù×÷£¬·µ»ØÖµÎªÁ´±íµÄÍ·Ö¸Õë
 Node* Insert(Node* head, int pos, int val) {
-	//åˆ›å»ºè™šæ‹Ÿå¤´èŠ‚ç‚¹å’Œæ–°èŠ‚ç‚¹
-	Node head_node, * p = &head_node, *node = GetNewNode(val);;
+	//´´½¨ĞéÄâÍ·½ÚµãºÍĞÂ½Úµã
+	Node head_node, * p = &head_node, * node = GetNewNode(val);;
 	head_node.next = head;
 	for (int i = 0; i < pos; i++) p = p->next;
 	node->next = p->next;
 	p->next = node;
-	//è¿”å›è™šæ‹Ÿå¤´èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹æŒ‡é’ˆ
+	//·µ»ØĞéÄâÍ·½ÚµãµÄÏÂÒ»¸ö½ÚµãÖ¸Õë
 	return head_node.next;
 }
 
-//é“¾è¡¨ç»“æ„çš„åˆ é™¤æ“ä½œï¼Œè¿”å›å€¼ä¸ºé“¾è¡¨çš„å¤´æŒ‡é’ˆ
+//Á´±í½á¹¹µÄÉ¾³ı²Ù×÷£¬·µ»ØÖµÎªÁ´±íµÄÍ·Ö¸Õë
 Node* LinkList_Delete(Node* head, int pos) {
 	Node head_node, * p = &head_node;
 	head_node.next = head;
@@ -45,22 +45,22 @@ Node* LinkList_Delete(Node* head, int pos) {
 	return head_node.next;
 }
 
-//é”€æ¯é“¾è¡¨
+//Ïú»ÙÁ´±í
 void Clear(Node* head) {
 	if (head == NULL) return;
-	for (Node *p = head, *q; p; p = q) {
+	for (Node* p = head, *q; p; p = q) {
 		q = p->next;
 		free(p);
 	}
 	return;
 }
 
-//è¾“å‡ºé“¾è¡¨ä¸­æ•°æ®
-void Output_Linklist(Node *head) {
+//Êä³öÁ´±íÖĞÊı¾İ
+void Output_Linklist(Node* head) {
 	if (head == NULL) return;
 	int len = 0;
 	for (Node* p1 = head; p1; p1 = p1->next) {
-		if(len < 10) cout << len << "  |";
+		if (len < 10) cout << len << "  |";
 		else cout << len << " |";
 		len++;
 	}
@@ -70,21 +70,21 @@ void Output_Linklist(Node *head) {
 	}
 	cout << endl;
 	for (Node* p = head; p; p = p->next) {
-		if (p->data <10) cout << p->data << "   ";
+		if (p->data < 10) cout << p->data << "   ";
 		else cout << p->data << "  ";
 	}
 	cout << "\n\n";
 }
 
-//æŸ¥æ‰¾é“¾è¡¨ä¸­æ•°æ®
+//²éÕÒÁ´±íÖĞÊı¾İ
 void LinkList_Find(Node* head, int val) {
 	if (head == NULL) {
-		cout << "æ­¤é“¾ä¸ºç©ºé“¾è¡¨\n";
+		cout << "´ËÁ´Îª¿ÕÁ´±í\n";
 		return;
 	}
 	Output_Linklist(head);
-	//iè®°å½•æŸ¥æ‰¾åˆ°çš„ä¸ªæ•°ï¼Œlenä»£è¡¨èŠ‚ç‚¹çš„ä½ç½®ï¼Œfindinfæ•°ç»„è®°å½•ä½•ä½ç½®èŠ‚ç‚¹è¢«æŸ¥æ‰¾åˆ°
-	int i = 0, len =0, findinf[MAX_OP];
+	//i¼ÇÂ¼²éÕÒµ½µÄ¸öÊı£¬len´ú±í½ÚµãµÄÎ»ÖÃ£¬findinfÊı×é¼ÇÂ¼ºÎÎ»ÖÃ½Úµã±»²éÕÒµ½
+	int i = 0, len = 0, findinf[MAX_OP];
 	for (Node* p = head; p; p = p->next) {
 		if (p->data == val) {
 			cout << "^   ";
@@ -95,12 +95,12 @@ void LinkList_Find(Node* head, int val) {
 		len++;
 	}
 	cout << endl;
-	for (int j: findinf) {
+	for (int j : findinf) {
 		if (j == 1) cout << "|   ";
 		else cout << "    ";
 	}
 	cout << endl;
-	cout << "æŸ¥æ‰¾åˆ° " << i << " ä¸ª";
+	cout << "²éÕÒµ½ " << i << " ¸ö";
 	cout << endl;
 	return;
 }
