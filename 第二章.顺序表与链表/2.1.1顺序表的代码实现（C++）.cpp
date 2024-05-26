@@ -9,22 +9,22 @@ class SqList {
 	T* data;
 	int n, count;
 public:
-	//æ„é€ å‡½æ•°åˆå§‹åŒ–é¡ºåºè¡¨
+	//¹¹Ôìº¯Êı³õÊ¼»¯Ë³Ğò±í
 	SqList(int cap) {
 		data = new T[cap];
-		if (!data) throw "SqListå†…å­˜åˆ†é…å¤±è´¥";
- 		n = cap;
+		if (!data) throw "SqListÄÚ´æ·ÖÅäÊ§°Ü";
+		n = cap;
 		count = 0;
 	}
-	
-	//iè¡¨ç¤ºä½ç½®ï¼Œè·å–è¯¥ä½ç½®çš„å…ƒç´ å†…å®¹
+
+	//i±íÊ¾Î»ÖÃ£¬»ñÈ¡¸ÃÎ»ÖÃµÄÔªËØÄÚÈİ
 	bool Get(int i, T& elem) {
 		if (i < 0 || i >= count) return false;
 		elem = data[i];
 		return true;
 	}
 
-	//iè¡¨ç¤ºä½ç½®ï¼Œä¿®æ”¹è¯¥ä½ç½®çš„å…ƒç´ å†…å®¹
+	//i±íÊ¾Î»ÖÃ£¬ĞŞ¸Ä¸ÃÎ»ÖÃµÄÔªËØÄÚÈİ
 	bool Set(int i, T elem) {
 		if (i < 0 || i >= count) return false;
 		data[i] = elem;
@@ -32,7 +32,7 @@ public:
 	}
 
 
-	//å‘iä½ç½®æ’å…¥ä¸€ä¸ªå€¼
+	//ÏòiÎ»ÖÃ²åÈëÒ»¸öÖµ
 	bool Insert(int i, T elem) {
 		if (i < 0 || i > count) return false;
 		if (count == n && !realloc()) return false;
@@ -42,7 +42,7 @@ public:
 		}
 		data[i] = elem;
 		#else 
-		//ä½¿ç”¨æŒ‡é’ˆè¿›è¡Œéå†
+		//Ê¹ÓÃÖ¸Õë½øĞĞ±éÀú
 		T* p = data + i;
 		for (T* q = data + count - 1; q >= p; q--) *(q + 1) = *q;
 		*p = elem;
@@ -51,7 +51,7 @@ public:
 		return true;
 	}
 
-	//ç§»é™¤iä½ç½®çš„å…ƒç´ 
+	//ÒÆ³ıiÎ»ÖÃµÄÔªËØ
 	bool Remove(int i) {
 		if (i < 0 || i > count - 1) return false;
 		#if 0
@@ -59,7 +59,7 @@ public:
 			data[j] = data[j + 1];
 		}
 		#else
-		//ä½¿ç”¨æŒ‡é’ˆè¿›è¡Œéå†
+		//Ê¹ÓÃÖ¸Õë½øĞĞ±éÀú
 		T* p = data + count - 1;
 		for (T* q = data + i; q < p; q++) *q = *(q + 1);
 		#endif
@@ -67,15 +67,15 @@ public:
 		return true;
 	}
 
-	//å‘é¡ºåºè¡¨æœ«å°¾æ’å…¥ä¸€ä¸ªæ–°çš„å…ƒç´ 
+	//ÏòË³Ğò±íÄ©Î²²åÈëÒ»¸öĞÂµÄÔªËØ
 	bool Push_Back(T elem) {
 		if (count == n && !realloc()) return false;
 		data[count] = elem;
 		count++;
 		return true;
 	}
-	
-	//ç§»é™¤é¡ºåºè¡¨æœ«å°¾çš„ä¸€ä¸ªå…ƒç´ 
+
+	//ÒÆ³ıË³Ğò±íÄ©Î²µÄÒ»¸öÔªËØ
 	bool Pop_Back() {
 		if (count == 0) return false;
 		data[count - 1] = 0;
@@ -83,7 +83,7 @@ public:
 		return true;
 	}
 
-	//ç§»é™¤é¡ºåºè¡¨çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+	//ÒÆ³ıË³Ğò±íµÄµÚÒ»¸öÔªËØ
 	bool Remove_Front() {
 		T* p = data + count - 1;
 		for (T* q = data; q < p; q++) *q = *(q + 1);
@@ -91,8 +91,8 @@ public:
 		return true;
 	}
 
-	//ä»posä½ç½®æŸ¥æ‰¾ç›¸åŒå…ƒç´ 
-	int Find(int pos, bool (*Function) (T& sqlistelem, T elem),T val) {
+	//´ÓposÎ»ÖÃ²éÕÒÏàÍ¬ÔªËØ
+	int Find(int pos, bool (*Function) (T& sqlistelem, T elem), T val) {
 		if (count == 0) return -1;
 		for (int j = pos; j < count; j++) {
 			if (Function(data[j], val)) {
@@ -101,7 +101,7 @@ public:
 		}
 		return -1;
 	}
-	//ä½¿ç”¨å‡½æ•°æŒ‡é’ˆéå†æ“ä½œé¡ºåºè¡¨ä¸­çš„æ¯ä¸€ä¸ªå…ƒç´ 
+	//Ê¹ÓÃº¯ÊıÖ¸Õë±éÀú²Ù×÷Ë³Ğò±íÖĞµÄÃ¿Ò»¸öÔªËØ
 	void Traverse(void (*Function)(T& elem)) {
 		for (int i = 0; i < count; i++) {
 			Function(data[i]);
@@ -109,15 +109,15 @@ public:
 		cout << endl;
 	}
 
-	//è¿”å›å½“å‰é¡ºåºè¡¨çš„å…ƒç´ ä¸ªæ•°
+	//·µ»Øµ±Ç°Ë³Ğò±íµÄÔªËØ¸öÊı
 	int size() { return count; }
 
 private:
-	//é¡ºåºè¡¨å†…å­˜ä¸è¶³æ—¶ï¼Œä¸ºé¡ºåºè¡¨è‡ªåŠ¨æ‰©å¤§ç©ºé—´
+	//Ë³Ğò±íÄÚ´æ²»×ãÊ±£¬ÎªË³Ğò±í×Ô¶¯À©´ó¿Õ¼ä
 	bool realloc() {
 		T* p = new T[2 * n];
 		if (!p) {
-			cout << "å†…å­˜åˆ†é…å¼‚å¸¸" << endl;
+			cout << "ÄÚ´æ·ÖÅäÒì³£" << endl;
 			return false;
 		}
 		for (int i = 0; i < n; i++) p[i] = data[i];
@@ -182,9 +182,9 @@ int main()
 	list.Traverse(Print);
 	list.Push_Back('C');
 	list.Traverse(Print);
-	list.Push_Back('D');//ä¸ºé‡æ–°æ‰©å®¹æ—¶ï¼Œè¯¥å€¼æ’å…¥å¤±è´¥
+	list.Push_Back('D');//ÎªÖØĞÂÀ©ÈİÊ±£¬¸ÃÖµ²åÈëÊ§°Ü
 	list.Traverse(Print);
-	if (!list.Get(1, ch)) cout << "æœªè·å–è¯¥ä½ç½®çš„æ•°æ®" << endl;
+	if (!list.Get(1, ch)) cout << "Î´»ñÈ¡¸ÃÎ»ÖÃµÄÊı¾İ" << endl;
 	else cout << ch << endl;
 	list.Set(1, 'C');
 	list.Traverse(Print);
@@ -197,7 +197,7 @@ int main()
 	list.Remove_Front();
 	list.Traverse(Print);
 	list.Push_Back('E');
-	list.Set(2,'C');
+	list.Set(2, 'C');
 	list.Push_Back('E');
 	list.Traverse(Print);
 
@@ -205,7 +205,7 @@ int main()
 		int j = list.Find(i, Equel, 'E');
 		if (j != -1) {
 			i = j;
-			cout << "ç¬¬ " << j << " ä¸ªå…ƒç´ ä¸è¯¥å€¼ç›¸åŒ\n";
+			cout << "µÚ " << j << " ¸öÔªËØÓë¸ÃÖµÏàÍ¬\n";
 		}
 	}
 	cout << endl;
@@ -213,7 +213,7 @@ int main()
 		int j = list.Find(i, Smaller, 'E');
 		if (j != -1) {
 			i = j;
-			cout << "ç¬¬ " << j << " ä¸ªå…ƒç´ å°äºè¯¥å€¼\n";
+			cout << "µÚ " << j << " ¸öÔªËØĞ¡ÓÚ¸ÃÖµ\n";
 		}
 	}
 	list.Traverse(Converse);
@@ -223,7 +223,7 @@ int main()
 		int j = list.Find(i, Lager, 'E');
 		if (j != -1) {
 			i = j;
-			cout << "ç¬¬ " << j << " ä¸ªå…ƒç´ å¤§äºè¯¥å€¼\n";
+			cout << "µÚ " << j << " ¸öÔªËØ´óÓÚ¸ÃÖµ\n";
 		}
 	}
 	#endif

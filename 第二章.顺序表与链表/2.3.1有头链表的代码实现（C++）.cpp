@@ -5,30 +5,30 @@ using namespace std;
 
 template <typename T>
 class Lklist {
-	struct Lnode{
+	struct Lnode {
 		T data;
 		Lnode* next;
 	};
-	Lnode* rear;
+	Lnode* head;
 public:
 	Lklist() {
-		rear = new Lnode();
-		rear->next = rear;
+		head = new Lnode();
+		head->next = NULL;
 	}
 
 	bool get(int i, T& e) {
 		if (i <= 0) {
-			cout << "é”™è¯¯ä½ç½®è¾“å…¥" << endl;
+			cout << "´íÎóÎ»ÖÃÊäÈë" << endl;
 			return false;
 		}
-		Lnode* p = rear;
-		int j = -1;
-		while(p && j < i ) {
+		Lnode* p = head;
+		int j = 0;
+		while (p && j < i) {
 			p = p->next;
 			j++;
 		}
 		if (!p) {
-			cout << "é”™è¯¯ä½ç½®è¾“å…¥" << endl;
+			cout << "´íÎóÎ»ÖÃÊäÈë" << endl;
 			return false;
 		}
 		e = p->data;
@@ -37,17 +37,17 @@ public:
 
 	bool Set(int i, T elem) {
 		if (i <= 0) {
-			cout << "é”™è¯¯ä½ç½®è¾“å…¥" << endl;
+			cout << "´íÎóÎ»ÖÃÊäÈë" << endl;
 			return false;
 		}
-		Lnode* p = rear;
-		int j = -1;
+		Lnode* p = head;
+		int j = 0;
 		while (p && j < i) {
 			p = p->next;
 			j++;
 		}
 		if (!p) {
-			cout << "é”™è¯¯ä½ç½®è¾“å…¥" << endl;
+			cout << "´íÎóÎ»ÖÃÊäÈë" << endl;
 			return false;
 		}
 		p->data = elem;
@@ -56,22 +56,22 @@ public:
 
 	bool Insert(int i, T elem) {
 		if (i <= 0) {
-			cout << "æ’å…¥ä½ç½®é”™è¯¯" << endl;
+			cout << "²åÈëÎ»ÖÃ´íÎó" << endl;
 			return false;
 		}
-		int j = 0;
-		Lnode* p = rear;
+		int j = 1;
+		Lnode* p = head;
 		while (p && j < i) {
 			p = p->next;
 			j++;
 		}
 		if (!p) {
-			cout << "æ’å…¥ä½ç½®é”™è¯¯" << endl;
+			cout << "²åÈëÎ»ÖÃ´íÎó" << endl;
 			return false;
 		}
 		Lnode* node = new Lnode();
 		if (!node) {
-			cout << "èŠ‚ç‚¹åˆ›å»ºå¤±è´¥" << endl;
+			cout << "½Úµã´´½¨Ê§°Ü" << endl;
 			return false;
 		}
 		node->data = elem;
@@ -83,28 +83,28 @@ public:
 	bool Insert_front(T elem) {
 		Lnode* node = new Lnode();
 		if (!node) {
-			cout << "èŠ‚ç‚¹åˆ›å»ºå¤±è´¥" << endl;
+			cout << "½Úµã´´½¨Ê§°Ü" << endl;
 			return false;
 		}
 		node->data = elem;
-		node->next = rear->next->next;
-		rear->next->next = node;
+		node->next = head->next;
+		head->next = node;
 		return true;
 	}
 
 	bool Remove(int i) {
 		if (i <= 0) {
-			cout << "ç§»é™¤ä½ç½®é”™è¯¯" << endl;
+			cout << "ÒÆ³ýÎ»ÖÃ´íÎó" << endl;
 			return false;
 		}
-		Lnode* p = rear;
-		int j = 0;
+		Lnode* p = head;
+		int j = 1;
 		while (p && j < i) {
 			p = p->next;
 			j++;
 		}
 		if (!(p->next)) {
-			cout << "ç§»é™¤ä½ç½®é”™è¯¯" << endl;
+			cout << "ÒÆ³ýÎ»ÖÃ´íÎó" << endl;
 			return false;
 		}
 		Lnode* node = p->next;
@@ -114,41 +114,40 @@ public:
 	}
 
 	bool Remove_front() {
-		Lnode* p = rear->next->next;
-		rear->next->next = p->next;
+		Lnode* p = head->next;
+		head->next = p->next;
 		delete p;
 		return true;
 	}
 
 	bool Push_back(T elem) {
-		Lnode* node = new Lnode(), *p = rear;
+		Lnode* node = new Lnode(), * p = head;
 		if (!node) {
-			cout << "èŠ‚ç‚¹åˆ›å»ºå¤±è´¥" << endl;
+			cout << "½Úµã´´½¨Ê§°Ü" << endl;
 			return false;
 		}
 		node->data = elem;
-		node->next = p->next;
+		while (p->next) p = p->next;
 		p->next = node;
-		rear = node;
+		node->next = NULL;
 		return true;
 	}
 
 	bool Pop_back(T& elem) {
-		Lnode* p = rear, *q;
-		elem = rear->data;
-		while (p->next != rear) {
+		Lnode* p = head, * q;
+		while (p->next->next) {
 			p = p->next;
 		}
 		q = p->next;
-		p->next = q->next;
-		rear = p;
+		elem = q->data;
+		p->next = NULL;
 		delete q;
 		return true;
 	}
-	
+
 	void Traverse(void (*Function) (T& elem)) {
-		Lnode* p = rear->next->next;
-		while (p != rear) {
+		Lnode* p = head->next;
+		while (p) {
 			Function(p->data);
 			p = p->next;
 		}
