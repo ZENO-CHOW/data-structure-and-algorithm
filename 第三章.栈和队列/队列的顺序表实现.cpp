@@ -15,13 +15,18 @@ public:
 	}
 
 	bool Push_back(T elem) {
-		if ((rear + 1) % size == head) Reset();
+		if ((rear + 1) % size == head) {
+			if (!Reset()) return false;
+			data[rear] = elem;
+			rear = size / 2;
+			return true;
+		}
 		data[rear] = elem;
 		rear = (rear + 1) % size;
 		return true;
 	}
 
-	T& Pop_back() {
+	T& Pop_front() {
 		if (head == rear) throw "╤сапн╙©у";
 		T elem = data[head];
 		head = (head + 1) % size;
@@ -82,7 +87,7 @@ int main() {
 	cout << list.Last_elem() << endl;
 	cout << list.Count() << endl;
 	while (!(list.Empty_list())) {
-		cout << list.Pop_back() << "  ";
+		cout << list.Pop_front() << "  ";
 	}
 	cout << endl;
 	cout << list.Count() << endl;
