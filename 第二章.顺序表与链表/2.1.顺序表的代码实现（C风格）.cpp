@@ -8,7 +8,7 @@ struct Vector {
 	int* data;
 };
 
-//顺序标的初始化
+//顺序表的初始化
 Vector* GetNewVector(int n) {
 	Vector* p = (Vector*)malloc(sizeof(Vector));
 	if (p != NULL) {
